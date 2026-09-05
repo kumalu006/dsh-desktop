@@ -1,0 +1,45 @@
+{
+  "name": "dsh-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron desktop shell for the DeepSeek Harness web GUI (local, Phase 1). Reuses the dsh web loopback server; no changes to dsh source.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "icons": "bash scripts/make-icons.sh",
+    "dist:dir": "electron-builder --mac dir",
+    "dist": "electron-builder --mac",
+    "dist:dmg": "electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "com.deepseek.harness.desktop",
+    "productName": "DeepSeek Harness",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "config.defaults.json",
+      "assets/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dir",
+        "dmg"
+      ],
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "title": "DeepSeek Harness"
+    },
+    "electronDist": "node_modules/electron/dist",
+    "electronVersion": "44.2.0"
+  },
+  "devDependencies": {
+    "electron": "^44.2.0",
+    "electron-builder": "^26.15.3"
+  }
+}

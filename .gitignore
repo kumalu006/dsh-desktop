@@ -1,0 +1,10 @@
+node_modules/
+release/
+.eb-cache/
+.electron-home/
+.npm-cache/
+build/icon-1024.png
+build/AppIcon.iconset/
+
+# macOS
+.DS_Store
