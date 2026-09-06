@@ -16,6 +16,9 @@
  * The backend is the built dsh CLI (`node <checkout>/apps/cli/lib/bin.js web
  * --no-open --port <port>`); it binds loopback only. Sessions, settings and
  * credentials under ~/.dsh are reused unchanged.
+ *
+ * Backend working directory (the session workspace for new sessions) is
+ * config.projectDir when set, otherwise the checkout.
  */
 
 const { app, BrowserWindow, Tray, Menu, nativeImage, dialog, session, shell } = require('electron')
@@ -48,6 +51,7 @@ function loadConfig() {
   if (process.env.DSH_NODE) env.node = process.env.DSH_NODE
   if (process.env.DSH_CHECKOUT) env.checkout = process.env.DSH_CHECKOUT
   if (process.env.DSH_BIN) env.bin = process.env.DSH_BIN
+  if (process.env.DSH_PROJECT_DIR) env.projectDir = process.env.DSH_PROJECT_DIR
   if (process.env.DSH_PORT) env.port = Number(process.env.DSH_PORT)
   if (process.env.DSH_HOST) env.host = process.env.DSH_HOST
 
@@ -146,7 +150,7 @@ function startBackend() {
   const args = ['web', '--no-open', '--port', String(config.port)]
   log(`spawn backend: ${config.node} ${bin} ${args.join(' ')}`)
   backend = spawn(config.node, [bin, ...args], {
-    cwd: config.checkout || os.homedir(),
+    cwd: config.projectDir || config.checkout || os.homedir(),
     env: buildEnv(),
     stdio: ['ignore', 'pipe', 'pipe'],
   })

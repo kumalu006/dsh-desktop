@@ -1,6 +1,7 @@
 {
   "node": "/usr/local/bin/node",
   "checkout": "/Users/kuma/projects/deepseek-harness",
+  "projectDir": "/Users/kuma/projects/chat_deepseek/apps/wechat",
   "bin": "",
   "port": 3080,
   "host": "127.0.0.1",

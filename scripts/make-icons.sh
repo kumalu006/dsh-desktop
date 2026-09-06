@@ -29,7 +29,9 @@ const app = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" 
 </svg>`
 
 const tray = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 50 50">
-  <path d="${d}" fill="#000000"/>
+  <g transform="translate(3,3) scale(0.88)">
+    <path d="${d}" fill="#000000"/>
+  </g>
 </svg>`
 
 fs.writeFileSync(`${build}/app-icon-src.svg`, app)
@@ -52,8 +54,9 @@ done
 cp "$BUILD/icon-1024.png" "$ICONSET/icon_512x512@2x.png"
 iconutil -c icns "$ICONSET" -o "$BUILD/icon.icns"
 
-# Tray template glyphs.
-sips -s format png "$BUILD/tray-src.svg" --out "$ASSETS/trayTemplate.png" >/dev/null
-sips -z 64 64 "$ASSETS/trayTemplate.png" --out "$ASSETS/trayTemplate@2x.png" >/dev/null
+# Tray template glyphs: 16x16 (1x) + 32x32 (@2x), both crisp so the menu-bar
+# icon sits at the standard 16pt size instead of looking oversized/blurry.
+sips -s format png "$BUILD/tray-src.svg" --out "$ASSETS/trayTemplate@2x.png" >/dev/null
+sips -z 16 16 "$ASSETS/trayTemplate@2x.png" --out "$ASSETS/trayTemplate.png" >/dev/null
 
 echo "done: build/icon.icns, assets/trayTemplate.png, assets/trayTemplate@2x.png"

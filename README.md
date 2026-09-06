@@ -51,3 +51,9 @@ npm run dist                     # 产出 release/ 下的 .app 和 .dmg
 - 这是 Phase 1：后端仍依赖你本机的 Node 与 dsh checkout，**不用于分发给别人**。
 - 改了 dsh 源码后记得先 `pnpm run build`，否则后端仍是旧产物（与 `pnpm dsh web` 行为一致）。
 - 后端日志写到 `~/.dsh/logs/dsh-desktop.log`，排查启动问题看这里。
+
+## 会话工作目录
+
+后端以 `config.defaults.json` 的 `projectDir` 作为工作目录启动，新的会话与文件都落在该目录；
+可用 `~/.dsh/desktop-config.json` 覆盖（如 `{ "projectDir": "/path/to/folder" }`）。
+当前值：`/Users/kuma/projects/chat_deepseek/apps/wechat`。
